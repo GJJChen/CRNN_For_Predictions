@@ -10,7 +10,7 @@ from data_preprocessing import TrafficDataset, load_data
 from model import CRNN
 
 
-def train_model(data_path, sequence_length=30, batch_size=32, epochs=50, lr=0.01):
+def train_model(data_path, sequence_length=30, batch_size=32, epochs=50, lr=0.001):
     # 设置设备为GPU或CPU
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
@@ -18,7 +18,7 @@ def train_model(data_path, sequence_length=30, batch_size=32, epochs=50, lr=0.01
     # 加载并准备数据集
     data = load_data(data_path)
     dataset = TrafficDataset(data, sequence_length=sequence_length)
-    dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=8)
+    dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
     # 初始化模型并转移到设备
     input_size = data.shape[2]  # 网络指标数
